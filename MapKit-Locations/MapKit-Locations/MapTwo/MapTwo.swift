@@ -26,6 +26,20 @@ class Artwork: NSObject, MKAnnotation {
         super.init()
     }
     
+    init?(json: [Any]) {
+        // 1
+        self.title = json[16] as? String ?? "No Title"
+        self.locationName = json[12] as! String
+        self.discipline = json[15] as! String
+        // 2
+        if let latitude = Double(json[18] as! String),
+            let longitude = Double(json[19] as! String) {
+            self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        } else {
+            self.coordinate = CLLocationCoordinate2D()
+        }
+    }
+    
     var subtitle: String? {
         return locationName
     }
@@ -45,6 +59,8 @@ class Artwork: NSObject, MKAnnotation {
 class MapTwo: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
+    
+    var artworks: [Artwork] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +90,8 @@ class MapTwo: UIViewController {
         )
         mapView.setRegion(coordinateRegion, animated: true)
     }
+    
+    
 }
 
 // Configuring Annotation View
