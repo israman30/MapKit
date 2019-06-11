@@ -27,8 +27,10 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    // MARK: - Top premissions
     func setupLocationManager(){
-        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
 
     func checkLocationServices() {
@@ -37,6 +39,31 @@ class ViewController: UIViewController {
         } else {
             // TODO
             // Alert: user have to turn locations on
+        }
+    }
+    
+    func checkLocationAuth() {
+        switch CLLocationManager.authorizationStatus() {
+            // 1. When app is running the location is authorized
+        case .authorizedWhenInUse:
+            // TODO
+            break
+            // 2. When user do not allow the app to use location
+            // show alert on how to turn on permissions
+            // Once is denied, user has to use general setting to allow location
+        case .denied:
+            break
+            // 2. Ask for permissions
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+            // 3. Show alert that location can't be use
+        case .restricted:
+            break
+            // When app is running in the background location is authorized
+        case .authorizedAlways:
+            break
+        default:
+            break
         }
     }
 
