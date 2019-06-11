@@ -20,11 +20,25 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     
+    let locationManager = CLLocationManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    
+    func setupLocationManager(){
+        
+    }
 
+    func checkLocationServices() {
+        if CLLocationManager.locationServicesEnabled() {
+            // setup location manager
+        } else {
+            // TODO
+            // Alert: user have to turn locations on
+        }
+    }
 
 }
 
