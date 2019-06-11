@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     
+    @IBOutlet weak var goButtonRef: UIButton!
     let locationManager = CLLocationManager()
     let regionMeters: Double = 10000
     var previousLocation: CLLocation?
@@ -29,6 +30,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         pinImage.layer.cornerRadius = 20
+        goButtonRef.layer.cornerRadius = goButtonRef.frame.width / 2
         pinImage.clipsToBounds = true
         checkLocationServices()
     }
@@ -106,6 +108,16 @@ class ViewController: UIViewController {
         
         let request = createDirectionRequest(from: location)
         let directions = MKDirections(request: request)
+//        resetMapView(with: directions)
+        
+        directions.calculate { [weak self](response, error) in
+            guard let response = response else { return }
+            // Adding polyline into the array of routes
+            for route in response.routes {
+                self?.mapView.addOverlay(route.polyline)
+                self?.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+            }
+        }
     }
     
     // MARK: - create directin request function helper
@@ -122,6 +134,16 @@ class ViewController: UIViewController {
         
         return request
     }
+    
+    // Reset directions
+    var directionsArray:[MKDirections] = []
+    
+//    func resetMapView(with directions: MKDirections) {
+//        guard mapView?.overlays as! MKOverlay else { return }
+//        mapView.removeOverlay(overlay)
+//        directionsArray.append(directions)
+//        let _ = directionsArray.map { $0.cancel() }
+//    }
 }
 
 extension ViewController: CLLocationManagerDelegate {
@@ -153,6 +175,7 @@ extension ViewController: MKMapViewDelegate {
         
         guard center.distance(from: previousLocation) > 50 else { return }
         previousLocation = center
+        geoCoder.cancelGeocode()
         
         geoCoder.reverseGeocodeLocation(center) { [weak self] (placemarks, error) in
             if let error = error {
@@ -169,6 +192,14 @@ extension ViewController: MKMapViewDelegate {
                 self?.addressLabel.text = "\(streetNumber) \(streeName)"
             }
         }
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let render = MKPolylineRenderer(overlay: overlay as! MKPolyline)
+        render.strokeColor = .blue
+        render.lineWidth = 1.5
+        
+        return render 
     }
 }
 
