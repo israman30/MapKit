@@ -24,18 +24,45 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="8d5-kb-Jb4"/>
                                 </connections>
                             </mapView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JMt-77-avo">
+                                <rect key="frame" x="187" y="428" width="40" height="40"/>
+                                <color key="backgroundColor" red="1" green="0.016343303743551418" blue="0.19986315352412243" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="BI2-Yx-6Uv"/>
+                                    <constraint firstAttribute="height" constant="40" id="zvD-gV-XGh"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGy-ts-GGE">
+                                <rect key="frame" x="0.0" y="832" width="414" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="QhE-DI-tEv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tGy-ts-GGE" secondAttribute="trailing" id="6uq-lx-fGB"/>
                             <constraint firstAttribute="bottom" secondItem="j7f-Fh-U4f" secondAttribute="bottom" id="Ipf-n0-MLu"/>
+                            <constraint firstItem="JMt-77-avo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JzG-cY-afZ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="tGy-ts-GGE" secondAttribute="bottom" id="Q4b-Di-P4h"/>
+                            <constraint firstItem="JMt-77-avo" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="aVE-vM-Gaq"/>
                             <constraint firstItem="j7f-Fh-U4f" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="eRX-gS-OJd"/>
                             <constraint firstItem="j7f-Fh-U4f" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="gxC-9y-8JL"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="j7f-Fh-U4f" secondAttribute="trailing" id="pTW-Dv-oFE"/>
+                            <constraint firstItem="tGy-ts-GGE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="tgd-UM-ItN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="addressLabel" destination="tGy-ts-GGE" id="qTn-R2-SRS"/>
                         <outlet property="mapView" destination="j7f-Fh-U4f" id="Gyl-S0-rGE"/>
+                        <outlet property="pinImage" destination="JMt-77-avo" id="G1S-Ka-Wop"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
